@@ -13,13 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.utils;
+package me.zhengjie.modules.gen.utils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.*;
 import lombok.extern.slf4j.Slf4j;
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.domain.ColumnInfo;
+import me.zhengjie.modules.gen.domain.ColumnInfo;
+import me.zhengjie.modules.gen.domain.GenConfig;
+import me.zhengjie.utils.FileUtil;
+import me.zhengjie.utils.StringUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.io.File;
@@ -27,7 +29,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static me.zhengjie.utils.FileUtil.SYS_TEM_DIR;
 

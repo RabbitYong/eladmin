@@ -13,13 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.domain;
+package me.zhengjie.modules.gen.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.zhengjie.utils.GenUtil;
+import me.zhengjie.modules.gen.utils.GenUtil;
+
 import javax.persistence.*;
 import java.io.Serializable;
 

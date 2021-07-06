@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.rest;
+package me.zhengjie.modules.gen.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.service.GenConfigService;
+import me.zhengjie.modules.gen.domain.GenConfig;
+import me.zhengjie.modules.gen.service.GenConfigService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

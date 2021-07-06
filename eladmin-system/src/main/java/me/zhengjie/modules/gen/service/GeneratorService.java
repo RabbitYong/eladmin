@@ -13,12 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service;
+package me.zhengjie.modules.gen.service;
 
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.domain.ColumnInfo;
+import me.zhengjie.modules.gen.domain.ColumnInfo;
+import me.zhengjie.modules.gen.domain.GenConfig;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

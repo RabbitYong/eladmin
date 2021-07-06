@@ -13,36 +13,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.domain.vo;
+package me.zhengjie.modules.gen.repository;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import me.zhengjie.modules.gen.domain.ColumnInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
- * 表的数据信息
  * @author Zheng Jie
- * @date 2019-01-02
+ * @date 2019-01-14
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class TableInfo {
+public interface ColumnInfoRepository extends JpaRepository<ColumnInfo,Long> {
 
-    /** 表名称 */
-    private Object tableName;
-
-    /** 创建日期 */
-    private Object createTime;
-
-    /** 数据库引擎 */
-    private Object engine;
-
-    /** 编码集 */
-    private Object coding;
-
-    /** 备注 */
-    private Object remark;
-
-
+    /**
+     * 查询表信息
+     * @param tableName 表格名
+     * @return 表信息
+     */
+    List<ColumnInfo> findByTableNameOrderByIdAsc(String tableName);
 }

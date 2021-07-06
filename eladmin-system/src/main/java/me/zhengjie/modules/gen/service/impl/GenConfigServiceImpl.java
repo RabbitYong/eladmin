@@ -13,14 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service.impl;
+package me.zhengjie.modules.gen.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.repository.GenConfigRepository;
-import me.zhengjie.service.GenConfigService;
-import me.zhengjie.utils.StringUtils;
+import me.zhengjie.modules.gen.domain.GenConfig;
+import me.zhengjie.modules.gen.repository.GenConfigRepository;
+import me.zhengjie.modules.gen.service.GenConfigService;
 import org.springframework.stereotype.Service;
+
 import java.io.File;
 
 /**

@@ -13,27 +13,36 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service.impl;
+package me.zhengjie.modules.gen.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ZipUtil;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.domain.ColumnInfo;
-import me.zhengjie.domain.vo.TableInfo;
 import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.repository.ColumnInfoRepository;
-import me.zhengjie.service.GeneratorService;
-import me.zhengjie.utils.FileUtil;
-import me.zhengjie.utils.GenUtil;
-import me.zhengjie.utils.PageUtil;
-import me.zhengjie.utils.StringUtils;
+import me.zhengjie.modules.gen.domain.ColumnInfo;
+import me.zhengjie.modules.gen.domain.GenConfig;
+import me.zhengjie.modules.gen.domain.vo.TableInfo;
+import me.zhengjie.modules.gen.repository.ColumnInfoRepository;
+import me.zhengjie.modules.gen.service.GeneratorService;
+import me.zhengjie.modules.gen.utils.DBContextHolder;
+import me.zhengjie.modules.gen.utils.DynamicDataSource;
+import me.zhengjie.modules.gen.utils.GenUtil;
+import me.zhengjie.modules.mnt.domain.Database;
+import me.zhengjie.modules.mnt.service.DatabaseService;
+import me.zhengjie.modules.mnt.service.dto.DatabaseDto;
+import me.zhengjie.modules.mnt.service.dto.DatabaseQueryCriteria;
+import me.zhengjie.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -58,7 +67,22 @@ public class GeneratorServiceImpl implements GeneratorService {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    @Qualifier("dynamicJdbcTemplate")
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+    @Autowired
+    @Qualifier("dynamicDataSource")
+    private DynamicDataSource dynamicDataSource;
+
+    @PersistenceContext(unitName = "dynamicEntityManageFactory")
+    private EntityManager entityManager;
+
+    private static boolean dynamicFlag = true;
+
     private final ColumnInfoRepository columnInfoRepository;
+
+    private final DatabaseService databaseService;
 
     @Override
     public Object getTables() {
@@ -72,6 +96,18 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     @Override
     public Object getTables(String name, int[] startEnd) {
+        List<DatabaseDto> databases = databaseService.queryAll(new DatabaseQueryCriteria());
+        if(dynamicFlag) {
+            Database database = new Database();
+            BeanUtils.copyProperties(databases.get(0),database);
+            try {
+                dynamicDataSource.createDataSourceWithCheck(database);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            DBContextHolder.setDataSource(database.getId());
+            em = entityManager;
+        }
         // 使用预编译防止sql注入
         String sql = "select table_name ,create_time , engine, table_collation, table_comment from information_schema.tables " +
                 "where table_schema = (select database()) " +

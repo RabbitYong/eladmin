@@ -13,28 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service;
+package me.zhengjie.modules.gen.repository;
 
-import me.zhengjie.domain.GenConfig;
+import me.zhengjie.modules.gen.domain.GenConfig;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Zheng Jie
  * @date 2019-01-14
  */
-public interface GenConfigService {
+public interface GenConfigRepository extends JpaRepository<GenConfig,Long> {
 
     /**
      * 查询表配置
      * @param tableName 表名
-     * @return 表配置
+     * @return /
      */
-    GenConfig find(String tableName);
-
-    /**
-     * 更新表配置
-     * @param tableName 表名
-     * @param genConfig 表配置
-     * @return 表配置
-     */
-    GenConfig update(String tableName, GenConfig genConfig);
+    GenConfig findByTableName(String tableName);
 }

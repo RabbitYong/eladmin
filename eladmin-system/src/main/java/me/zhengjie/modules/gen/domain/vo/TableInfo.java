@@ -13,21 +13,36 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.repository;
+package me.zhengjie.modules.gen.domain.vo;
 
-import me.zhengjie.domain.GenConfig;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
+ * 表的数据信息
  * @author Zheng Jie
- * @date 2019-01-14
+ * @date 2019-01-02
  */
-public interface GenConfigRepository extends JpaRepository<GenConfig,Long> {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class TableInfo {
 
-    /**
-     * 查询表配置
-     * @param tableName 表名
-     * @return /
-     */
-    GenConfig findByTableName(String tableName);
+    /** 表名称 */
+    private Object tableName;
+
+    /** 创建日期 */
+    private Object createTime;
+
+    /** 数据库引擎 */
+    private Object engine;
+
+    /** 编码集 */
+    private Object coding;
+
+    /** 备注 */
+    private Object remark;
+
+
 }

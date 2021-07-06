@@ -13,20 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.rest;
+package me.zhengjie.modules.gen.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.ColumnInfo;
 import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.service.GenConfigService;
-import me.zhengjie.service.GeneratorService;
+import me.zhengjie.modules.gen.domain.ColumnInfo;
+import me.zhengjie.modules.gen.service.GenConfigService;
+import me.zhengjie.modules.gen.service.GeneratorService;
 import me.zhengjie.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
